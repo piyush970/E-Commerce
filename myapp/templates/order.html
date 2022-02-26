@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% load cart %}
+{% load custom_filter %}
+<div class="container">
+    <div class="border rounded p-4 m-4">
+        <p class="display-4">Your Orders</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>SrNo.</th>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td >{{forloop.counter}}</td>
+                    <td><img style="height: 100px;" class="rounded-circle" src="{{product.image.url}}"></td>
+                    <td>{{product.title}}</td>
+                    <td>{{product.discount_price|currency}}</td>
+                    <td>{{product|cart_quantity:request.session.cart}}</td>
+                    <td>{{product|total:request.session.cart|currency}}</td>
+                </tr>
+                 {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<style>
+    .nav-item-cart{
+        margin-left : 5px;
+        float: right;
+    }
+    .col-md{
+        margin-left : 15px;
+    }
+    .navbar-brand{
+        font-weight: 800;
+        margin: 10px;
+        padding:5px;
+        background-color: MediumSeaGreen;
+        font-family: 'Bree Serif', serif;
+        font-size: 3.2rem;
+    }
+    .card-body{
+        background-color: MediumSeaGreen;
+    }
+    .navbar{
+        background-color: MediumSeaGreen;
+        height: 70px;
+    }
+    .card12{
+        border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: hidden;
+        margin-bottom:5px;
+    }
+    .nav-item{
+        font-size: 1.15rem;
+    }
+    .badge{
+        margin-left: -8px;
+        margin-top: 11px;
+    }
+    .nav-link::after{
+    content: '';
+    width: 0px;
+    height: 3px;
+    background:black;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+    border-radius: 20px;
+    }
+    .nav-link:hover::after{
+        width: 100%;
+    }
+
+    .profile{
+        height: 35px;
+        width: 35px;
+        margin-right: 15px;
+        margin-top: -5px;
+    }
+
+    .spoiler
+		{
+		border:1px solid #ddd;
+		padding:3px;
+		}
+	.profile .inner
+		{
+		border:1px solid #eee;
+		padding:3px;
+		margin:3px;
+		}
+
+
+<!--Mobile Device-->
+@media only screen and (max-width: 800px){
+    .navbar{
+        padding: 0px;
+    }
+    .navbar-nav{
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
+    }
+    .navbar-nav li{
+        margin: 30px auto;
+        background: blue;
+        color: white;
+    }
+
+}
+
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand navbar-brand boarderless" href="{% url 'index' %}">E-Commerce</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item d-flex">
+          {% if request.session.cart.keys|length < 1  %}
+        <a class="nav-link">Cart</a>
+          {% else %}
+        <a class="nav-link" href="cart">Cart</a>
+        <span class="badge">{{ request.session.cart.keys|length }}</span>
+          {% endif %}
+<!--        <a class="nav-link" href="cart">Cart</a>-->
+<!--        <span class="badge badge-info">{{ request.session.cart.keys|length }}</span>-->
+      </li>
+
+        {% if request.session.user_id or user.is_authenticated %}
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="orders">Orders</a>-->
+<!--      </li>-->
+        <li class="nav-item">
+            <a class="nav-link" href="logout">Logout</a>
+        </li>
+
+        {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="signup">Signup</a>
+      </li>
+        {% endif %}
+  <div>
+    </ul>
+
+      <div class="col-md">
+          <form class="card12">
+              <div class="card-body row no-gutters align-items-center">
+                  <div class="col">
+                      <input type="search" name="product_name" placeholder="Search" class="form-control form-control boarderless">
+                  </div>
+                  <div class="col-auto">
+                      <button class="btn5 btn5-success" type="submit">Search</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="profile">
+          <img onclick="showSpoiler(this);" src="static/css/image/profile.png">
+<!--          <div class="inner" style="display:none;">-->
+<!--              {% if user.is_authenticated %}-->
+<!--              <p>Welcome, {{ user.username}}</p>-->
+<!--              {% endif %}-->
+<!--              {% if request.session %}-->
+<!--              <p>Welcome, {{ request.session.email }}</p>-->
+<!--              {% endif %}-->
+<!--          </div>-->
+      </div>
+  </div>
+
+</nav>
+<script type="text/javascript">
+function showSpoiler(obj)
+    {
+    var inner = obj.parentNode.getElementsByTagName("div")[0];
+    if (inner.style.display == "none")
+        inner.style.display = "";
+    else
+        inner.style.display = "none";
+    }
+</script>

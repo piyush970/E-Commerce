@@ -1,0 +1,315 @@
+<!-- Footer -->
+<style>
+<!--.footer{-->
+<!--  margin-top: 30px;-->
+<!--  margin-bottom: 30px;-->
+<!--  display: flex;-->
+<!--  background-color: black;-->
+<!--}-->
+<!--.footer-info{-->
+<!--  margin-top: 30px;-->
+<!--  margin-right: 30px;-->
+<!--  color: white;-->
+<!--}-->
+<!--.footer-info p{-->
+<!--  text-align: center;-->
+<!--  margin-right: 30px;-->
+<!--  margin-left: 30px;-->
+<!--}-->
+<!--.footer-info img{-->
+<!--  margin-left: 400px;-->
+<!--  height: 80px;-->
+<!--  width: 80px-->
+<!--}-->
+<!--.social{-->
+<!--  padding:0px;-->
+<!--  display: flex;-->
+<!--  margin-top: 50px;-->
+<!--  margin-left: 250px;-->
+<!--}-->
+<!--.footer-content{-->
+<!--  margin-left: 70px;-->
+<!--  margin-top: 20px;-->
+<!--  margin-bottom: 20px;-->
+<!--  color: white;-->
+<!--}-->
+<!--.footer-info .image-1{-->
+<!--  margin-left: 350px;-->
+<!--  height: 4%;-->
+<!--  width: 4%;-->
+<!--}-->
+<!--.footer-info .image-2{-->
+<!--  margin-left: 50px;-->
+<!--  height: 4%;-->
+<!--  width: 4%;-->
+<!--}-->
+<!--.footer-info .image-3{-->
+<!--  margin-left: 50px;-->
+<!--  height: 4%;-->
+<!--  width: 4%;-->
+<!--}-->
+.contact{
+	background-color: black;
+	color: white;
+	margin-bottom: -30px;
+}
+.contact h4{
+	text-align: center;
+	margin-top: 20px;
+}
+.row{
+	margin-bottom: 10px;
+}
+.form-group{
+	margin-bottom: 10px;
+}
+.contact-form{
+	margin-left: 60px;
+	margin-right: 60px;
+}
+.copyright{
+    background-color: black;
+    text-align: center;
+    margin-top: -30px;
+    height: 50px;
+    border: 1px solid white;
+    border-bottom: hidden;
+    border-right: hidden;
+    border-left: hidden;
+}
+.copyright-content{
+
+}
+.copyright-content h6{
+    color: white;
+}
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    background-color: #000000;
+    margin-bottom: 15px;
+    margin-top: 20px;
+<!--    justify-content: center;-->
+
+}
+.footer-double1{
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+.footer-double2{
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.foot{
+    margin-top: 10px;
+    margin-left: 60px;
+}
+.footer-content{
+    margin-top: 25px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    background-color: #000000;
+
+}
+.footer-content img{
+    padding: 3px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
+    background-color: white;
+}
+.footer-content p{
+    background-color: #000000;
+    color: white;
+    margin: a;
+    margin-left: 30px;
+}
+
+.footer-inside{
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+    margin-top: 2px;
+}
+.footer .social .image-1{
+    height: 30px;
+    width: 30px;
+}
+.footer .social .image-2{
+    height: 30px;
+    width: 30px;
+}
+.footer .social .image-3{
+    height: 30px;
+    width: 30px;
+}
+.footer .foot .footer-content .footer-inside .inside-1{
+    font-size: 1.2rem;
+}
+.footer .foot .footer-content .footer-inside .inside-2{
+    margin-top: -10px;
+}
+.footer-last{
+    display: flex:
+    flex-direction: column;
+    color: white;
+    margin-top: 50px;
+    margin-left: 30px;
+    margin-right: 40px;
+}
+.footer-last h3{
+    text-align: center;
+}
+
+
+
+
+
+
+@media only screen and (max-width: 700px){
+    .row{
+        flex-direction: column;
+    }
+    .footer{
+        flex-direction: column;
+    }
+    .btn{
+      font-size:0.875;
+      width: 10%;
+      height: 40px;
+      flex-direction; row;
+ }
+    }
+    .footer-info .image-1{
+        margin-left: 30px;
+    }
+    image-container{
+        height: 110px;
+    }
+    .social{
+        margin-left: 0px;
+    }
+}
+
+</style>
+	<section class="contact">
+		<h4>Contact Us</h4>
+		<div class="contact-form">
+			<form  method="POST" action="contact">
+                {% csrf_token %}
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group"> <label class="sr-only">Name</label> <input type="text" class="form-control" required="" id="name" name="name" placeholder="Your Name"> </div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group"> <label class="sr-only">Email</label> <input type="email" class="form-control" required="" id="email" name="email" placeholder="Email Address"> </div>
+					</div>
+				</div>
+				<!--end of /.row-->
+				<div class="form-group"> <label class="sr-only">Message</label>
+                    <textarea class="form-control" required="" id="message" name="message" rows="3" placeholder="Write Message"></textarea>
+				</div>
+                <button onclick="myFunction()" type="submit" class="btn btn-primary">Send Message</button>
+			</form>
+		</div>
+	</section>
+<section class="footer">
+<!--  <div class="footer-content">-->
+<!--    <h4>Way To Code</h4>-->
+<!--    <p>No 6 & 7, Laxmi Plaza, Laxmi Industrial Estate, New Link Road, Andheri West, Mumbai - 400053</p>-->
+<!--    <h5>info@waytocode.com</h5>-->
+<!--    <h5>+91 7777777777</h5>-->
+<!--  </div>-->
+<!--  <div class="footer-info">-->
+<!--    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.-->
+<!--      Qui dicta minus molestiae vel beatae natus eveniet ratione-->
+<!--      temporibus aperiam harum alias officiis assumenda officia-->
+<!--      quibusdam deleniti eos cupiditate dolore doloribus!</p>-->
+    <div class="footer-double1">
+        <div class="foot">
+            <div class="footer-content">
+                <img src="static/css/image/gmail.png">
+                <div class="footer-inside">
+                    <p class="inside-1">Email</p>
+                    <p class="inside-2">info@ecommerce.com</p>
+                </div>
+            </div>
+            <div class="footer-content">
+                <img src="static/css/image/phone-call.png">
+                <div class="footer-inside">
+                    <p class="inside-1">Mobile</p>
+                    <p class="inside-2">+91 9925888827</p>
+                </div>
+            </div>
+            <div class="footer-content">
+                <img src="static/css/image/map.png">
+                <div class="footer-inside">
+                    <p class="inside-1">Address</p>
+                    <p class="inside-2">Plot No 27, 4, F.K.Group, Road No.2, Banjarahills, Hyderabad-500034, Telangana, India</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-double2">
+        <div class="foot">
+            <div class="footer-content">
+                <img class="image-1" src="media/images/facebook.png">
+                <div class="footer-inside">
+                    <p class="inside-1">Facebook</p>
+                    <p class="inside-2">Link</p>
+                </div>
+            </div>
+            <div class="footer-content">
+                <img class="image-2" src="media/images/instagram.png">
+                <div class="footer-inside">
+                    <p class="inside-1">Instagram</p>
+                    <p class="inside-2">Link</p>
+                </div>
+            </div>
+            <div class="footer-content">
+                <img class="image-3" src="media/images/twitter.png">
+                <div class="footer-inside">
+                    <p class="inside-1">Twitter</p>
+                    <p class="inside-2">Link</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer-double">
+        <div class="foot">
+            <div class="footer-last">
+                <h3>E-Commerce</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,
+                    pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,
+                    pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,
+                    pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus.</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="copyright">
+    <div class="copyright-content">
+        <h6>Copyright © 2022. All rights reserved by WayToCode.</h6>
+    </div>
+</section>
+
+<script>
+function myFunction() {
+  alert("Message Received! Thank you!");
+}
+</script>
+<!-- Footer -->

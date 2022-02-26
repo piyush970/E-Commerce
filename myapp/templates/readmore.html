@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+{% load static %}
+{% load custom_filter %}
+{% load cart %}
+<html lang="en">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Shopping | WayToCode</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <title>View | Product | WayToCode</title>
+</head>
+
+<style>
+    .row-title{
+        font-weight: 800;
+    }
+    .row-d-price{
+        font-weight: 800;
+        color: green;
+    }
+    .row-price{
+        font-weight: 500;
+        color: red;
+    }
+    .row-price{
+        position: relative;
+        text-decoration: line-through;
+    }
+<!--    .row-price::after{-->
+<!--        content: "";-->
+<!--        width: 10%;-->
+<!--        height: 1px;-->
+<!--        background: black;-->
+<!--        position: absolute;-->
+<!--        margin-top: 12px;-->
+<!--        left: 0;-->
+<!--    }-->
+    .container{
+        margin-top: 25px;
+        margin-bottom: 30px;
+    }
+    .cart_update{
+        border-style: solid;
+        margin-right: 300px;
+        margin-left:1px;
+    }
+    .btn6{
+        margin-left:-12px;
+    }
+    .btn7{
+        margin-right:5px;
+    }
+
+
+</style>
+
+
+
+<style>
+    .nav-item-cart{
+        margin-left : 5px;
+        float: right;
+    }
+    .col-md{
+        margin-left : 15px;
+    }
+    .navbar-brand{
+        font-weight: 800;
+        margin: 10px;
+        padding:5px;
+        background-color: MediumSeaGreen;
+        font-family: 'Bree Serif', serif;
+        font-size: 1.3rem;
+    }
+    .card-body{
+        background-color: MediumSeaGreen;
+    }
+    .navbar{
+        background-color: MediumSeaGreen;
+        height: 60px;
+    }
+    .card12{
+        border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: hidden;
+        margin-bottom:5px;
+    }
+    .nav-item{
+        font-size: 1.15rem;
+    }
+    .badge{
+        margin-left: -8px;
+        margin-top: 11px;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a href="{% url 'index' %}" class="navbar-brand navbar-brand boarderless" >E-Commerce</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item d-flex">
+        <a class="nav-link" href="http://127.0.0.1:8000/cart">Cart</a>
+        <span class="badge badge-info">{{ request.session.cart.keys|length }}</span>
+      </li>
+        {% if request.session.user_id %}
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="orders">Orders</a>-->
+<!--      </li>-->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+
+        {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+      </li>
+        {% endif %}
+
+  </div>
+</nav>
+
+
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <img src="{{ product.image.url }}">
+                </div>
+            </div>
+            <div class="col">
+                <h2>
+                    <div id="a{{ product_object.id }}" class="row-title">
+                        {{ product.title }}
+                    </div>
+                </h2>
+                <h4>
+                    <div id="p{{ product_object.id }}" class="row-d-price">
+                    {{ product.discount_price|currency }}
+                    </div>
+                </h4>
+                <div class="row-price">
+                    {{ product.price|currency }}
+                </div>
+                <h4>About the product:</h4>
+                <div class="row">
+                    <h5>{{ product.description }}</h5>
+                </div>
+               {% if product|in_cart:request.session.cart %}
+                <div class="cart_update row" >
+                    <form action="/" class="col-2" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value="{{product.id}}">
+                        <input type="submit" value=" + " class="btn6 btn6-block btn1-secondary">
+                    </form>
+                    <div class="text-center col">{{ product|cart_quantity:request.session.cart}} in cart</div>
+                    <form action="/" class="col-2" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value="{{product.id}}">
+                        <input hidden type="text" name="remove" value="True">
+                        <input type="submit" value=" - " class="btn7 btn7-block btn7-secondary">
+                    </form>
+                </div>
+                {% else %}
+                <form class="add_cart" action="/" method="POST">
+                    {% csrf_token %}
+                    <input hidden type="text" name="product" value="{{product.id}}">
+                    <input type="submit" class="btn8 atc btn8-secondary col-lg-6" value="Add To Cart">
+                </form>
+                {% endif %}
+                </div>
+
+        </div>
+    </div>
+</body>
+</html>

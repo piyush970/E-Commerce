@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+
+
+
+<style>
+    .nav-item-cart{
+        margin-left : 5px;
+        float: right;
+    }
+    .col-md{
+        margin-left : 15px;
+    }
+    .navbar-brand{
+        font-weight: 800;
+        margin: 10px;
+        padding:5px;
+        background-color: MediumSeaGreen;
+        font-family: 'Bree Serif', serif;
+        font-size: 1.3rem;
+    }
+    .card-body{
+        background-color: MediumSeaGreen;
+    }
+    .navbar{
+        background-color: MediumSeaGreen;
+        height: 60px;
+    }
+    .card12{
+        border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: hidden;
+        margin-bottom:5px;
+    }
+    .nav-item{
+        font-size: 1.15rem;
+    }
+    .badge{
+        margin-left: -8px;
+        margin-top: 11px;
+        color: white;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a href="{% url 'index' %}" class="navbar-brand navbar-brand boarderless" >E-Commerce</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item d-flex">
+        <a class="nav-link" href="cart">Cart</a>
+        <span class="badge">{{ request.session.cart.keys|length }}</span>
+      </li>
+        {% if request.session.user_id %}
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="orders">Orders</a>-->
+<!--      </li>-->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+
+        {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+      </li>
+        {% endif %}
+
+  </div>
+</nav>
+
+
+
+
+<body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% load cart %}
+{% load custom_filter %}
+<div class="container">
+
+    <div class="border rounded p-4 m-4">
+        <p class="display-4">Your cart</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>SrNo.</th>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+
+                    <td >{{forloop.counter}}</td>
+                    <td><img style="height: 100px;" class="rounded-circle" src="{{product.image.url}}"></td>
+                    <td>{{product.title}}</td>
+                    <td>{{product.discount_price|currency}}</td>
+                    <td>{{product|cart_quantity:request.session.cart}}</td>
+                    <td>{{product|total:request.session.cart|currency}}</td>
+                </tr>
+
+                 {% endfor %}
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th colspan="4">Total</th>
+                    <th>{{ products|quantity_total:request.session.cart }}</th>
+                    <th>{{ products|cart_total:request.session.cart|currency }}</th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <hr>
+
+        <div class="m-3 p-3">
+            {% if products|cart_total:request.session.cart|currency <= "0"  %}
+            <a href="{% url 'index' %}" class="btn btn-outline-info border rounded col-lg-3 float-right">HOME</a>
+            {% else %}
+            <a href="checkout" class="btn btn-outline-info border rounded col-lg-3 float-right">Checkout</a>
+            {% endif %}
+        </div>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+         <input name="totalquantity"  id="totalquantity" type="hidden" value="{{products|quantity_total:request.session.cart}}">
+    </form>
+</div>
+
+</body>
+</html>
